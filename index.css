@@ -1,0 +1,54 @@
+#main-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    height: 100%;
+}
+
+#main-window {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+#calculator-body {
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+#results-window {
+    display: flex;
+    flex-direction: column;
+}
+
+.small-btn {
+    height: ;
+}
+
+#clear-delete {
+    display: flex;
+}
+
+header {
+    text-align: center;
+    font-size: 2.5em;
+    padding: 15px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+}
