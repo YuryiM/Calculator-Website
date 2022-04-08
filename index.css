@@ -18,25 +18,57 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: "Courier New", Arial, sans-serif;
 }
 
 #calculator-body {
+    width: 400px;
+    height: 600px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
     background-color: bisque;
     border-style: solid;
     border-radius: 10px;
     border-width: 1px;
+    padding: 15px;
 }
 
 #results-window {
+    background-color: white;
     display: flex;
     flex-direction: column;
+    flex: 1;
+    padding: 5px 10px;
+    text-align: right;
+}
+
+#previous-expression {
+    font-size: 1.75em;
+    flex: 2;
+}
+
+#current-expression {
+    font-size: 3em;
+    flex: 3;
+}
+
+#button-menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    flex: 2.5;
+}
+
+.large-btn {
+    grid-column-start: span 2;
+    font-size: 1.5em;
 }
 
 .small-btn {
-    height: ;
-}
+    grid-column-start: span 1;
+    font-size: 1.5em;
+}  
 
 #clear-delete {
     display: flex;
@@ -45,7 +77,7 @@ html, body {
 header {
     text-align: center;
     font-size: 2.5em;
-    padding: 15px;
+    padding: 40px 0 0 0;
 }
 
 footer {
