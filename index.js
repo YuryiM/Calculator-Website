@@ -1,5 +1,5 @@
 let previousExpression = '';
-let currentExpression = '0';
+let currentExpression = '';
 let previousInput = '';
 let currentInput = '0';
 
@@ -42,6 +42,11 @@ const calculate = () => {
     previousExpression += ' = ';
 }
 
+const setCurrentInput = num => {
+    if (currentInput == 0) currentInput = '';
+    currentDisplay.innerHTML = currentInput += num;
+}
+
 clearBtn.addEventListener('click', () => {
     previousDisplay.innerHTML = '';
     currentDisplay.innerHTML = '0';
@@ -54,80 +59,63 @@ deleteBtn.addEventListener('click', () => {
 });
 
 zeroBtn.addEventListener('click', () => {
-    if (currentInput != '0'){
-        currentDisplay.innerHTML = currentExpression += '0';
-    }
-    
+    setCurrentInput(0);    
 });
 
 oneBtn.addEventListener('click', () => {
-    if (currentInput != '0'){
-        currentDisplay.innerHTML = currentExpression += '1';
-    }
-    else if (currentInput == '0'){
-        currentExpression = '';
-        currentDisplay.innerHTML = currentExpression += '1';
-    }
+    setCurrentInput(1);
 });
 
 twoBtn.addEventListener('click', () => {
-    if (currentInput != '0'){
-        currentDisplay.innerHTML = currentExpression += '2';
-    }
-    else if (currentInput == '0'){
-        currentExpression = '';
-        currentDisplay.innerHTML = currentExpression += '2';
-    }
+    setCurrentInput(2);
 });
 
 threeBtn.addEventListener('click', () => {
-    if (currentInput != '0'){
-        currentDisplay.innerHTML = currentExpression += '3';
-    }
-    else if (currentExpression == '0'){
-        currentExpression = '';
-        currentDisplay.innerHTML = currentExpression += '3';
-    }
+    setCurrentInput(3);
 });
 
 fourBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentExpression += '4';
+    setCurrentInput(4);
 });
 
 fiveBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentExpression += '5';
+    setCurrentInput(5);
 });
 
 sixBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentExpression += '6';
+    setCurrentInput(6);
 });
 
 sevenBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentExpression += '7';
+    setCurrentInput(7);
 });
 
 eightBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentExpression += '8';
+    setCurrentInput(8);
 });
 
 nineBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentExpression += '9';
+    setCurrentInput(9);
 });
 
 plusBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = currentExpression += ' + ';
+    previousDisplay.innerHTML = currentInput += ' + ';
+    currentInput = '';
 });
 
 minusBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = currentExpression += ' - ';
+    previousDisplay.innerHTML = currentInput += ' + ';
+    currentInput = '';
 });
     
 multiplyBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = currentExpression += ' * ';
+    previousDisplay.innerHTML = currentInput += ' + ';
+    currentInput = '';
 });
 
 divideBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = currentExpression += ' / ';
+    previousDisplay.innerHTML = currentInput += ' + ';
+    currentInput = '';
 });
 
 equalsBtn.addEventListener('click', () => {
