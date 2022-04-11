@@ -1,5 +1,5 @@
+// Declares variables to be used later and assigns default values
 let currentExpression = '';
-let previousInput = '';
 let currentInput = '0';
 
 // Display window objects
@@ -26,19 +26,24 @@ let divideBtn = document.getElementById('divide-btn');
 let equalsBtn = document.getElementById('equals-btn');
 let decimalBtn = document.getElementById('decimal-btn');
 
+// Updates currentInput based on passed argument
+// Accepts number or decimal
 function setCurrentInput(input) {
-    if (currentInput == 0)
-        currentInput = '';
+    // Clears current input if it is default value of 0
+    if (currentInput == 0) currentInput = '';
+    // Adds argument to end of currentInput
     currentInput += input;
     currentDisplay.innerHTML = currentInput;
 }
 
+// Returns value based on what is in currentExpression
+// Only evaluates 2 numbers at a time
 function calculate() {
+    let solution;
     // Splits expression into 3 items
     const simplifiedExpressionArr = currentExpression.split(' ');
     const numOne = parseFloat(simplifiedExpressionArr[0], 10);
     const numTwo = parseFloat(simplifiedExpressionArr[2], 10);
-    let solution;
     // Switch statement which takes in the operator
     switch (simplifiedExpressionArr[1]) {
         case '+':
@@ -57,33 +62,33 @@ function calculate() {
     return Math.round(solution * 100)/100;
 }
 
+// Performs button based on operator argument
+// Possible arguments: [+, -, *, /]
 function buttonOperation(operator){
+    // Runs if currentInput has a value and if previousDisplay is empty or just completed an operation
     if (currentInput && (previousDisplay.innerHTML.includes('=') || previousDisplay.innerHTML == '')){
-        console.log("HEY!");
-        console.log(currentExpression);
         currentExpression = '';
-        currentExpression += currentInput + ' ' + operator + ' ';
-        console.log(currentExpression);
-        previousDisplay.innerHTML = currentExpression;
+        previousDisplay.innerHTML = currentExpression += currentInput + ' ' + operator + ' ';
         currentDisplay.innerHTML = currentInput = '';
     }
     else if (currentInput && !previousDisplay.innerHTML.includes('=')){
-        console.log();
-        currentExpression += currentInput;
-        previousDisplay.innerHTML = currentExpression + ' =';
-        let value = calculate();
+        currentExpression += currentInput + ' =';
+        previousDisplay.innerHTML = currentExpression;
+        currentExpression = calculate() + ' ' + operator + ' ';
+        previousDisplay.innerHTML = currentExpression;
+        // Clears current information
         currentInput = '';
-        currentExpression = value + ' ' + operator + ' ';
         currentDisplay.innerHTML = '';
-        previousDisplay.innerHTML = value + ' ' + operator + ' ';
     }
 }
+
 
 function deleteInput(){
     currentDisplay.innerHTML = currentInput = String(currentInput).slice(0, -1);
 }
 
 function equals(){
+    // Runs if current expression contains an operator, otherwise does nothing
     if(String(currentExpression).match(/(\+|-|\*|\/)/g)){
         previousDisplay.innerHTML += currentInput;
         currentDisplay.innerHTML = '';
@@ -96,6 +101,7 @@ function equals(){
     }
 }
 
+// Clears previous and current displays
 clearBtn.addEventListener('click', () => {
     previousDisplay.innerHTML = '';
     currentDisplay.innerHTML = '0';
@@ -105,12 +111,6 @@ clearBtn.addEventListener('click', () => {
 
 deleteBtn.addEventListener('click', () => {
     deleteInput();
-});
-
-window.addEventListener('keydown', e => {
-    if (e.key == 'Backspace' || e.key == 'Delete'){
-        currentDisplay.innerHTML = currentInput = String(currentInput).slice(0, -1);
-    }
 });
 
 window.addEventListener('keydown', e => {
