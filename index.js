@@ -1,4 +1,3 @@
-let previousExpression = '';
 let currentExpression = '';
 let previousInput = '';
 let currentInput = '0';
@@ -38,7 +37,6 @@ clearBtn.addEventListener('click', () => {
     previousDisplay.innerHTML = '';
     currentDisplay.innerHTML = '0';
     currentInput = '';
-    previousExpression = '';
     currentExpression = '';
 });
 
@@ -87,6 +85,22 @@ nineBtn.addEventListener('click', () => {
 });
 
 plusBtn.addEventListener('click', () => {
+    buttonOperation('+');
+});
+
+minusBtn.addEventListener('click', () => {
+    buttonOperation('-');
+});
+    
+multiplyBtn.addEventListener('click', () => {
+    buttonOperation('*');
+});
+
+divideBtn.addEventListener('click', () => {
+    buttonOperation('/');
+});
+
+function buttonOperation(operator){
     if (currentInput && (previousDisplay.innerHTML.includes('=') || previousDisplay.innerHTML == '')){
         currentExpression += currentInput + ' + ';
         previousDisplay.innerHTML = currentExpression;
@@ -101,26 +115,16 @@ plusBtn.addEventListener('click', () => {
         currentDisplay.innerHTML = '';
         previousDisplay.innerHTML = value + ' + ';
     }
-});
+}
 
-minusBtn.addEventListener('click', () => {
-});
-    
-multiplyBtn.addEventListener('click', () => {
-});
-
-divideBtn.addEventListener('click', () => {
-});
-
-
-const calculate = () => {
+function calculate() {
     // Splits expression into 3 items
     const simplifiedExpressionArr = currentExpression.split(' ');
     const numOne = parseInt(simplifiedExpressionArr[0], 10);
     const numTwo = parseInt(simplifiedExpressionArr[2], 10);
     let solution;
     // Switch statement which takes in the operator
-    switch(simplifiedExpressionArr[1]){
+    switch (simplifiedExpressionArr[1]) {
         case '+':
             solution = numOne + numTwo;
             break;
