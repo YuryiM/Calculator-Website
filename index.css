@@ -27,7 +27,7 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color: bisque;
+    background-color: #ffd026;
     border-style: solid;
     border-radius: 10px;
     border-width: 1px;
@@ -41,6 +41,7 @@ html, body {
     flex: 1;
     padding: 5px 10px;
     text-align: right;
+    border-radius: 10px;
 }
 
 #previous-expression {
@@ -51,6 +52,8 @@ html, body {
 #current-expression {
     font-size: 3em;
     flex: 3;
+    justify-content: center;
+    align-items: center;
 }
 
 #button-menu {
@@ -63,15 +66,33 @@ html, body {
 .large-btn {
     grid-column-start: span 2;
     font-size: 1.5em;
+    border-style: none;
+    color: #ffffff;
+    border-radius: 5px;
+    
+}
+
+.large-btn:hover{
+    opacity: 0.9;
 }
 
 .small-btn {
     grid-column-start: span 1;
     font-size: 1.5em;
+    border-style: none;
+    border-radius: 5px;
 }  
 
-#clear-delete {
-    display: flex;
+.small-btn:hover{
+    background-color: #d8d8d8;
+}
+
+#clear-btn{
+    background-color: #4999f5;
+}
+
+#delete-btn{
+    background-color: #f54949;
 }
 
 header {
