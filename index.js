@@ -83,6 +83,19 @@ function deleteInput(){
     currentDisplay.innerHTML = currentInput = String(currentInput).slice(0, -1);
 }
 
+function equals(){
+    if(String(currentExpression).match(/(\+|-|\*|\/)/g)){
+        previousDisplay.innerHTML += currentInput;
+        currentDisplay.innerHTML = '';
+        currentExpression += currentInput;
+        let value = calculate();
+        currentInput = value;
+        currentDisplay.innerHTML = value;
+        currentExpression = value;
+        previousDisplay.innerHTML += ' =';
+    }
+}
+
 clearBtn.addEventListener('click', () => {
     previousDisplay.innerHTML = '';
     currentDisplay.innerHTML = '0';
@@ -149,7 +162,18 @@ window.addEventListener('keydown', e => {
             break;
         case 'Backspace':
             deleteInput();
-            break;        
+            break; 
+        case 'Enter':
+            equals();
+            break;
+        case '=':
+            equals();
+            break;   
+        case '.':
+            setCurrentInput('.');
+            break;
+        default:
+            break;
     }
 });
 
@@ -214,14 +238,5 @@ decimalBtn.addEventListener('click', () => {
 });
 
 equalsBtn.addEventListener('click', () => {
-    if(String(currentExpression).match(/(\+|-|\*|\/)/g)){
-        previousDisplay.innerHTML += currentInput;
-        currentDisplay.innerHTML = '';
-        currentExpression += currentInput;
-        let value = calculate();
-        currentInput = value;
-        currentDisplay.innerHTML = value;
-        currentExpression = value;
-        previousDisplay.innerHTML += ' =';
-    }
+    equals();
 });
