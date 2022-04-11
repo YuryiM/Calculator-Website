@@ -33,7 +33,7 @@ function setCurrentInput(input) {
     if (currentInput == 0) currentInput = '';
     // Adds argument to end of currentInput
     currentInput += input;
-    currentDisplay.innerHTML = currentInput;
+    currentDisplay.innerText = currentInput;
 }
 
 // Returns value based on what is in currentExpression
@@ -66,45 +66,45 @@ function calculate() {
 // Possible arguments: [+, -, *, /]
 function buttonOperation(operator){
     // Runs if currentInput has a value and if previousDisplay is empty or just completed an operation
-    if (currentInput && (previousDisplay.innerHTML.includes('=') || previousDisplay.innerHTML == '')){
+    if (currentInput && (previousDisplay.innerText.includes('=') || previousDisplay.innerText == '')){
         currentExpression = '';
-        previousDisplay.innerHTML = currentExpression += currentInput + ' ' + operator + ' ';
-        currentDisplay.innerHTML = currentInput = '';
+        previousDisplay.innerText = currentExpression += currentInput + ' ' + operator + ' ';
+        currentDisplay.innerText = currentInput = '';
     }
-    else if (currentInput && !previousDisplay.innerHTML.includes('=')){
+    else if (currentInput && !previousDisplay.innerText.includes('=')){
         currentExpression += currentInput + ' =';
-        previousDisplay.innerHTML = currentExpression;
+        previousDisplay.innerText = currentExpression;
         currentExpression = calculate() + ' ' + operator + ' ';
-        previousDisplay.innerHTML = currentExpression;
+        previousDisplay.innerText = currentExpression;
         // Clears current information
         currentInput = '';
-        currentDisplay.innerHTML = '';
+        currentDisplay.innerText = '';
     }
 }
 
 
 function deleteInput(){
-    currentDisplay.innerHTML = currentInput = String(currentInput).slice(0, -1);
+    currentDisplay.innerText = currentInput = String(currentInput).slice(0, -1);
 }
 
 function equals(){
     // Runs if current expression contains an operator, otherwise does nothing
     if(String(currentExpression).match(/(\+|-|\*|\/)/g)){
-        previousDisplay.innerHTML += currentInput;
-        currentDisplay.innerHTML = '';
+        previousDisplay.innerText += currentInput;
+        currentDisplay.innerText = '';
         currentExpression += currentInput;
         let value = calculate();
         currentInput = value;
-        currentDisplay.innerHTML = value;
+        currentDisplay.innerText = value;
         currentExpression = value;
-        previousDisplay.innerHTML += ' =';
+        previousDisplay.innerText += ' =';
     }
 }
 
 // Clears previous and current displays
 clearBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = '';
-    currentDisplay.innerHTML = '0';
+    previousDisplay.innerText = '';
+    currentDisplay.innerText = '0';
     currentInput = '';
     currentExpression = '';
 });
