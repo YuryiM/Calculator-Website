@@ -26,14 +26,13 @@ let divideBtn = document.getElementById('divide-btn');
 let equalsBtn = document.getElementById('equals-btn');
 let decimalBtn = document.getElementById('decimal-btn');
 
-const setCurrentInput = num => {
+const setCurrentInput = input => {
     if (currentInput == 0) currentInput = '';
-    currentInput += num;
+    currentInput += input;
     currentDisplay.innerHTML = currentInput;
 }
 
 clearBtn.addEventListener('click', () => {
-    // evalute expression
     previousDisplay.innerHTML = '';
     currentDisplay.innerHTML = '0';
     currentInput = '';
@@ -41,7 +40,7 @@ clearBtn.addEventListener('click', () => {
 });
 
 deleteBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentInput = currentInput.slice(0, -1);
+    currentDisplay.innerHTML = currentInput = String(currentInput).slice(0, -1);
 });
 
 zeroBtn.addEventListener('click', () => {
@@ -102,26 +101,31 @@ divideBtn.addEventListener('click', () => {
 
 function buttonOperation(operator){
     if (currentInput && (previousDisplay.innerHTML.includes('=') || previousDisplay.innerHTML == '')){
-        currentExpression += currentInput + ' + ';
+        console.log("HEY!");
+        console.log(currentExpression);
+        currentExpression = '';
+        currentExpression += currentInput + ' ' + operator + ' ';
+        console.log(currentExpression);
         previousDisplay.innerHTML = currentExpression;
         currentDisplay.innerHTML = currentInput = '';
     }
     else if (currentInput && !previousDisplay.innerHTML.includes('=')){
+        console.log();
         currentExpression += currentInput;
         previousDisplay.innerHTML = currentExpression + ' =';
         let value = calculate();
         currentInput = '';
-        currentExpression = value + ' + ';
+        currentExpression = value + ' ' + operator + ' ';
         currentDisplay.innerHTML = '';
-        previousDisplay.innerHTML = value + ' + ';
+        previousDisplay.innerHTML = value + ' ' + operator + ' ';
     }
 }
 
 function calculate() {
     // Splits expression into 3 items
     const simplifiedExpressionArr = currentExpression.split(' ');
-    const numOne = parseInt(simplifiedExpressionArr[0], 10);
-    const numTwo = parseInt(simplifiedExpressionArr[2], 10);
+    const numOne = parseFloat(simplifiedExpressionArr[0], 10);
+    const numTwo = parseFloat(simplifiedExpressionArr[2], 10);
     let solution;
     // Switch statement which takes in the operator
     switch (simplifiedExpressionArr[1]) {
@@ -137,24 +141,26 @@ function calculate() {
         case '/':
             solution = numOne / numTwo;
     }
-    return solution;
+    // Rounds to hundreths place
+    return Math.round(solution * 100)/100;
 }
 
 equalsBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML += currentInput;
-    currentDisplay.innerHTML = '';
-    currentExpression += currentInput;
-    console.log('This is the expression before: ', currentExpression)
-    let value = calculate();
-    currentInput = value;
-    currentDisplay.innerHTML = value;
-    currentExpression = value;
-    previousDisplay.innerHTML += ' =';
-    console.log('This is the expression after: ', currentExpression)
+    if(String(currentExpression).match(/(\+|-|\*|\/)/g)){
+        console.log("testeeee");
+        previousDisplay.innerHTML += currentInput;
+        currentDisplay.innerHTML = '';
+        currentExpression += currentInput;
+        let value = calculate();
+        currentInput = value;
+        currentDisplay.innerHTML = value;
+        currentExpression = value;
+        previousDisplay.innerHTML += ' =';
+    }
 });
 
 
 
 decimalBtn.addEventListener('click', () => {
-
+    setCurrentInput('.');
 });
