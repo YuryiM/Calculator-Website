@@ -27,35 +27,23 @@ let divideBtn = document.getElementById('divide-btn');
 let equalsBtn = document.getElementById('equals-btn');
 let decimalBtn = document.getElementById('decimal-btn');
 
-const calculate = () => {
-    const simplifiedExpression = currentExpression.replace(/ /g, '');
-    switch(simplifiedExpression.charAt(1)){
-        case '+':
-            currentExpression = parseInt(simplifiedExpression.charAt(0), 10) + parseInt(simplifiedExpression.charAt(2), 10);
-        case '-':
-            currentExpression = parseInt(simplifiedExpression.charAt(0), 10) - parseInt(simplifiedExpression.charAt(2), 10);
-        case '*':
-            currentExpression = parseInt(simplifiedExpression.charAt(0), 10) * parseInt(simplifiedExpression.charAt(2), 10);
-        case '/':
-            currentExpression = parseInt(simplifiedExpression.charAt(0), 10) / parseInt(simplifiedExpression.charAt(2), 10);
-    }
-    previousExpression += ' = ';
-}
-
 const setCurrentInput = num => {
     if (currentInput == 0) currentInput = '';
-    currentDisplay.innerHTML = currentInput += num;
+    currentInput += num;
+    currentDisplay.innerHTML = currentInput;
 }
 
 clearBtn.addEventListener('click', () => {
+    // evalute expression
     previousDisplay.innerHTML = '';
     currentDisplay.innerHTML = '0';
+    currentInput = '';
     previousExpression = '';
     currentExpression = '';
 });
 
 deleteBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentExpression.slice(0, -1);
+    currentDisplay.innerHTML = currentInput = currentInput.slice(0, -1);
 });
 
 zeroBtn.addEventListener('click', () => {
@@ -99,28 +87,69 @@ nineBtn.addEventListener('click', () => {
 });
 
 plusBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = currentInput += ' + ';
-    currentInput = '';
+    if (currentInput && (previousDisplay.innerHTML.includes('=') || previousDisplay.innerHTML == '')){
+        currentExpression += currentInput + ' + ';
+        previousDisplay.innerHTML = currentExpression;
+        currentDisplay.innerHTML = currentInput = '';
+    }
+    else if (currentInput && !previousDisplay.innerHTML.includes('=')){
+        currentExpression += currentInput;
+        previousDisplay.innerHTML = currentExpression + ' =';
+        let value = calculate();
+        currentInput = '';
+        currentExpression = value + ' + ';
+        currentDisplay.innerHTML = '';
+        previousDisplay.innerHTML = value + ' + ';
+    }
 });
 
 minusBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = currentInput += ' + ';
-    currentInput = '';
 });
     
 multiplyBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = currentInput += ' + ';
-    currentInput = '';
 });
 
 divideBtn.addEventListener('click', () => {
-    previousDisplay.innerHTML = currentInput += ' + ';
-    currentInput = '';
 });
+
+
+const calculate = () => {
+    // Splits expression into 3 items
+    const simplifiedExpressionArr = currentExpression.split(' ');
+    const numOne = parseInt(simplifiedExpressionArr[0], 10);
+    const numTwo = parseInt(simplifiedExpressionArr[2], 10);
+    let solution;
+    // Switch statement which takes in the operator
+    switch(simplifiedExpressionArr[1]){
+        case '+':
+            solution = numOne + numTwo;
+            break;
+        case '-':
+            solution = numOne - numTwo;
+            break;
+        case '*':
+            solution = numOne * numTwo;
+            break;
+        case '/':
+            solution = numOne / numTwo;
+    }
+    return solution;
+}
 
 equalsBtn.addEventListener('click', () => {
-
+    previousDisplay.innerHTML += currentInput;
+    currentDisplay.innerHTML = '';
+    currentExpression += currentInput;
+    console.log('This is the expression before: ', currentExpression)
+    let value = calculate();
+    currentInput = value;
+    currentDisplay.innerHTML = value;
+    currentExpression = value;
+    previousDisplay.innerHTML += ' =';
+    console.log('This is the expression after: ', currentExpression)
 });
+
+
 
 decimalBtn.addEventListener('click', () => {
 
