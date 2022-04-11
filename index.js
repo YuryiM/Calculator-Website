@@ -79,6 +79,9 @@ function buttonOperation(operator){
     }
 }
 
+function deleteInput(){
+    currentDisplay.innerHTML = currentInput = String(currentInput).slice(0, -1);
+}
 
 clearBtn.addEventListener('click', () => {
     previousDisplay.innerHTML = '';
@@ -88,7 +91,66 @@ clearBtn.addEventListener('click', () => {
 });
 
 deleteBtn.addEventListener('click', () => {
-    currentDisplay.innerHTML = currentInput = String(currentInput).slice(0, -1);
+    deleteInput();
+});
+
+window.addEventListener('keydown', e => {
+    if (e.key == 'Backspace' || e.key == 'Delete'){
+        currentDisplay.innerHTML = currentInput = String(currentInput).slice(0, -1);
+    }
+});
+
+window.addEventListener('keydown', e => {
+    switch (e.key){
+        case '0':
+            setCurrentInput(0); 
+            break;
+        case '1':
+            setCurrentInput(1); 
+            break;
+        case '2':
+            setCurrentInput(2); 
+            break;
+        case '3':
+            setCurrentInput(3); 
+            break;
+        case '4':
+            setCurrentInput(4); 
+            break;
+        case '5':
+            setCurrentInput(5); 
+            break; 
+        case '6':
+            setCurrentInput(6); 
+            break;
+        case '7':
+            setCurrentInput(7); 
+            break;
+        case '8':
+            setCurrentInput(8); 
+            break;
+        case '9':
+            setCurrentInput(9); 
+            break;
+        case '+':
+            buttonOperation('+');
+            break;
+        case '-':
+            buttonOperation('-'); 
+            break;
+        case '*':
+            buttonOperation('*'); 
+            break;
+        case '/':
+            buttonOperation('/');
+            break;
+        case 'Delete':
+            deleteInput();
+            break;
+        case 'Backspace':
+            deleteInput();
+            break;        
+    }
 });
 
 zeroBtn.addEventListener('click', () => {
